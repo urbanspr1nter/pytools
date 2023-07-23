@@ -1,5 +1,7 @@
 # process_guru
 
+![ss.png](assets%2Fss.png)
+
 **process_guru** is a tool to take control of CPU affinity, priority, and IO priority for known processes defined by
 you! All the logic is within 2 files, the main python script and a `config.json` configuration file.
 
