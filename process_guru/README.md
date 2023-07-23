@@ -104,3 +104,9 @@ Valid values are: `"default" | "realtime" | "high" | "above normal" | "normal" |
 
 `default` is the **same** as NORMAL priority. Be careful about using `realtime` as it may over-prioritize execution of the process
 and cause system instability.
+
+### Using `pyinstaller` to create an EXE
+
+```powershell
+pyinstaller --clean --onefile -i gear.ico --name="process_guru" main.py
+```

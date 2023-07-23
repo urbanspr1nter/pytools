@@ -4,6 +4,7 @@ import sys
 import psutil
 import time
 import json
+import atexit
 
 """
 @Author: urbanspr1nter@gmail.com
@@ -69,7 +70,7 @@ def get_process_config(name, process_configs):
     return None
 
 
-def govern_processes(process_configs):
+def govern_processes(process_configs, restore=False):
     """
     Main process governor algorithm which gets the list of current PIDs
     and applies the specific configuration against them.
@@ -85,14 +86,23 @@ def govern_processes(process_configs):
             if found_process_config is None:
                 continue
 
+            affinities = found_process_config["cpu_affinity"]
             compute_priority = found_process_config["cpu_priority"]
             io_priority = found_process_config["io_priority"]
 
-            p.cpu_affinity(found_process_config["cpu_affinity"])
+            if restore:
+                affinities = []
+                compute_priority = "default"
+                io_priority = "default"
+
+            p.cpu_affinity(affinities)
             p.nice(priority_map[compute_priority])
             p.ionice(io_priority_map[io_priority])
 
-            print(f'[{datetime.datetime.now()}]\t✔️ Process {found_process_config["name"]} PID={pid} managed.')
+            if restore:
+                print(f'[{datetime.datetime.now()}]\t✔🪄 Process {found_process_config["name"]} PID={pid} restored.')
+            else:
+                print(f'[{datetime.datetime.now()}]\t✔️ Process {found_process_config["name"]} PID={pid} managed.')
 
 
 def detect_system_battery_state():
@@ -133,6 +143,8 @@ def __main__():
     self_pid = os.getpid()
     self_p = psutil.Process(self_pid)
     self_p.nice(psutil.HIGH_PRIORITY_CLASS)
+
+    atexit.register(govern_processes, processes, True)
 
     process_names = []
     for process_config in processes:
