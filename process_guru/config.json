@@ -1,0 +1,56 @@
+{
+  "forever": true,
+  "polling_interval_seconds": 30,
+  "comment": "Profile used to perform day to day development at work. Assumes computer has 16 logical CPUs (8c/16t)",
+  "processes": [
+    {
+      "name": "node.exe",
+      "comment": "(4 cores) Put this only on 4 physical cores so my computer does not lock up",
+      "cpu_affinity": [0, 1, 2, 3, 4, 5, 6, 7],
+      "cpu_priority": "above normal",
+      "io_priority": "default"
+    },
+    {
+      "name": "brave.exe",
+      "comment": "(4 cores) During development node.exe, will not work as hard, put on same cores",
+      "cpu_affinity": [0, 1, 2, 3, 4, 5, 6, 7],
+      "cpu_priority": "default",
+      "io_priority": "default"
+    },
+    {
+      "name": "rg.exe",
+      "comment": "(2 cores) some VSCode Extension thing",
+      "cpu_affinity": [4, 5, 6, 7],
+      "cpu_priority": "default",
+      "io_priority": "default"
+    },
+    {
+      "name": "SenseCE.exe",
+      "comment": "(1 core) Windows Defender Advanced Threat Protection",
+      "cpu_affinity": [14, 15],
+      "cpu_priority": "background",
+      "io_priority": "low"
+    },
+    {
+      "name": "SearchIndexer.exe",
+      "comment": "(1 core) Something to do with indexing files",
+      "cpu_affinity": [14, 15],
+      "cpu_priority": "idle",
+      "io_priority": "very low"
+    },
+    {
+      "name": "Teams.exe",
+      "comment": "(2 cores) MS Teams",
+      "cpu_affinity": [10, 11, 12, 13],
+      "cpu_priority": "default",
+      "io_priority": "default"
+    },
+    {
+      "name": "msedge.exe",
+      "comment": "(2 cores) Edge",
+      "cpu_affinity": [10, 11, 12, 13],
+      "cpu_priority": "default",
+      "io_priority": "default"
+    }
+  ]
+}
