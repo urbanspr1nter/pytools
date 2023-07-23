@@ -51,6 +51,13 @@
       "cpu_affinity": [10, 11, 12, 13],
       "cpu_priority": "default",
       "io_priority": "default"
+    },
+    {
+      "name": "slack.exe",
+      "comment": "Limits Slack to use 4 logical CPU cores",
+      "cpu_affinity": [0, 1, 2, 3],
+      "cpu_priority": "default",
+      "io_priority": "default"
     }
   ]
 }

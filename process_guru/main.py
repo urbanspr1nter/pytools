@@ -92,7 +92,7 @@ def govern_processes(process_configs):
             p.nice(priority_map[compute_priority])
             p.ionice(io_priority_map[io_priority])
 
-            print(f'[{datetime.datetime.now()}]\t✔️ Process {found_process_config["name"]} has been governed.')
+            print(f'[{datetime.datetime.now()}]\t✔️ Process {found_process_config["name"]} PID={pid} managed.')
 
 
 def detect_system_battery_state():
